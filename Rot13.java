@@ -1,10 +1,10 @@
 import java.util.Scanner;
 
-public class rot13 {
-    public static final char[] lMin = { 'a', 'á', 'b', 'c', 'd', 'e', 'é', 'f', 'g', 'h', 'i', 'í', 'j', 'k', 'l', 'm',
+public class Rot13 {
+    public static final char[] LMIN = { 'a', 'á', 'b', 'c', 'd', 'e', 'é', 'f', 'g', 'h', 'i', 'í', 'j', 'k', 'l', 'm',
             'n', 'ñ', 'o', 'ó', 'p', 'q', 'r', 's', 't', 'u', 'ú', 'v', 'x', 'y', 'z' };
 
-    public static final char[] lMay = { 'A', 'Á', 'B', 'C', 'D', 'E', 'É', 'F', 'G', 'H', 'I', 'Í', 'J', 'K', 'L', 'M',
+    public static final char[] LMAY = { 'A', 'Á', 'B', 'C', 'D', 'E', 'É', 'F', 'G', 'H', 'I', 'Í', 'J', 'K', 'L', 'M',
             'N', 'Ñ', 'O', 'Ó', 'P', 'Q', 'R', 'S', 'T', 'U', 'Ú', 'V', 'X', 'Y', 'Z' };
 
     public static String xifraRot13(String cadena) {
@@ -14,34 +14,37 @@ public class rot13 {
         int posicio = 0;
 
         for (int l = 0; l < cadena.length(); l++) {
-            if (Character.isUpperCase(cadena.charAt(l))) {
+            if (Character.isUpperCase(cadena.charAt(l)) && Character.isLetter(cadena.charAt(l))) {
                 esMajuscula = true;
-            } else {
+            } else if (Character.isLoWerCase(cadena.charAt(l)) && Character.isLetter(cadena.charAt(l))) {
                 esMajuscula = false;
             }
-
-            if (esMajuscula) {
-                for (int c = 0; c < lMay.length; c++) {
-                    if (cadena.charAt(l) == lMay[c]) {
-                        posicio = c + 13;
-                        if (posicio >= lMay.length) {
-                            posicio = posicio - lMay.length;
+            if (Character.isLetter(cadena.charAt(l))) {
+                if (esMajuscula) {
+                    for (int c = 0; c < LMAY.length; c++) {
+                        if (cadena.charAt(l) == LMAY[c]) {
+                            posicio = c + 13;
+                            if (posicio >= LMAY.length) {
+                                posicio = posicio - LMAY.length;
+                            }
+                            nCadena = nCadena + LMAY[posicio];
+                            break;
                         }
-                        nCadena = nCadena + lMay[posicio];
-                        break;
+                    }
+                } else {
+                    for (int c = 0; c < LMIN.length; c++) {
+                        if (cadena.charAt(l) == LMIN[c]) {
+                            posicio = c + 13;
+                            if (posicio >= LMIN.length) {
+                                posicio = posicio - LMIN.length;
+                            }
+                            nCadena = nCadena + LMIN[posicio];
+                            break;
+                        }
                     }
                 }
             } else {
-                for (int c = 0; c < lMin.length; c++) {
-                    if (cadena.charAt(l) == lMin[c]) {
-                        posicio = c + 13;
-                        if (posicio >= lMin.length) {
-                            posicio = posicio - lMin.length;
-                        }
-                        nCadena = nCadena + lMin[posicio];
-                        break;
-                    }
-                }
+                nCadena = nCadena + cadena.charAt(l);
             }
         }
         return nCadena;
@@ -61,24 +64,24 @@ public class rot13 {
             }
 
             if (esMajuscula) {
-                for (int c = 0; c < lMay.length; c++) {
-                    if (cadena.charAt(l) == lMay[c]) {
+                for (int c = 0; c < LMAY.length; c++) {
+                    if (cadena.charAt(l) == LMAY[c]) {
                         posicio = c + -13;
                         if (posicio < 0) {
-                            posicio = posicio + lMay.length;
+                            posicio = posicio + LMAY.length;
                         }
-                        nCadena = nCadena + lMay[posicio];
+                        nCadena = nCadena + LMAY[posicio];
                         break;
                     }
                 }
             } else {
-                for (int c = 0; c < lMin.length; c++) {
-                    if (cadena.charAt(l) == lMin[c]) {
+                for (int c = 0; c < LMIN.length; c++) {
+                    if (cadena.charAt(l) == LMIN[c]) {
                         posicio = c + -13;
                         if (posicio < 0) {
-                            posicio = posicio + lMin.length;
+                            posicio = posicio + LMIN.length;
                         }
-                        nCadena = nCadena + lMin[posicio];
+                        nCadena = nCadena + LMIN[posicio];
                         break;
                     }
                 }
@@ -98,9 +101,9 @@ public class rot13 {
             } else if (text.equals("desxifra") || text.equals("Desxifra") || text.equals("DESXIFRA")) {
                 return text.toLowerCase();
             } else {
-
+                System.out.println("No té entès, torna-ho a escriure.");
             }
-            System.out.println("No té entès, torna-ho a escriure.");
+
         }
 
     }
