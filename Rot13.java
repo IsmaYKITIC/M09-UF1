@@ -10,13 +10,13 @@ public class Rot13 {
     public static String xifraRot13(String cadena) {
         // L= lletra C= Caracter
         String nCadena = "";
-        boolean esMajuscula;
+        boolean esMajuscula = false;
         int posicio = 0;
 
         for (int l = 0; l < cadena.length(); l++) {
             if (Character.isUpperCase(cadena.charAt(l)) && Character.isLetter(cadena.charAt(l))) {
                 esMajuscula = true;
-            } else if (Character.isLoWerCase(cadena.charAt(l)) && Character.isLetter(cadena.charAt(l))) {
+            } else if (Character.isLowerCase(cadena.charAt(l)) && Character.isLetter(cadena.charAt(l))) {
                 esMajuscula = false;
             }
             if (Character.isLetter(cadena.charAt(l))) {
@@ -53,74 +53,59 @@ public class Rot13 {
     public static String desxifraRot13(String cadena) {
         // L= lletra C= Caracter
         String nCadena = "";
-        boolean esMajuscula;
+        boolean esMajuscula = false;
         int posicio = 0;
 
         for (int l = 0; l < cadena.length(); l++) {
-            if (Character.isUpperCase(cadena.charAt(l))) {
+            if (Character.isUpperCase(cadena.charAt(l)) && Character.isLetter(cadena.charAt(l))) {
                 esMajuscula = true;
-            } else {
+            } else if (Character.isLowerCase(cadena.charAt(l)) && Character.isLetter(cadena.charAt(l))) {
                 esMajuscula = false;
             }
-
-            if (esMajuscula) {
-                for (int c = 0; c < LMAY.length; c++) {
-                    if (cadena.charAt(l) == LMAY[c]) {
-                        posicio = c + -13;
-                        if (posicio < 0) {
-                            posicio = posicio + LMAY.length;
+            if (Character.isLetter(cadena.charAt(l))) {
+                if (esMajuscula) {
+                    for (int c = 0; c < LMAY.length; c++) {
+                        if (cadena.charAt(l) == LMAY[c]) {
+                            posicio = c + -13;
+                            if (posicio < 0) {
+                                posicio = posicio + LMAY.length;
+                            }
+                            nCadena = nCadena + LMAY[posicio];
+                            break;
                         }
-                        nCadena = nCadena + LMAY[posicio];
-                        break;
+                    }
+                } else {
+                    for (int c = 0; c < LMIN.length; c++) {
+                        if (cadena.charAt(l) == LMIN[c]) {
+                            posicio = c + -13;
+                            if (posicio < 0) {
+                                posicio = posicio + LMIN.length;
+                            }
+                            nCadena = nCadena + LMIN[posicio];
+                            break;
+                        }
                     }
                 }
             } else {
-                for (int c = 0; c < LMIN.length; c++) {
-                    if (cadena.charAt(l) == LMIN[c]) {
-                        posicio = c + -13;
-                        if (posicio < 0) {
-                            posicio = posicio + LMIN.length;
-                        }
-                        nCadena = nCadena + LMIN[posicio];
-                        break;
-                    }
-                }
+                nCadena = nCadena + cadena.charAt(l);
             }
         }
         return nCadena;
     }
 
-    public static String confirmador() {
-        Scanner scanner = new Scanner(System.in);
-        String text;
-        System.out.println("Vols xifra o desxifra?");
-        while (true) {
-            text = scanner.nextLine();
-            if (text.equals("xifra") || text.equals("Xifra") || text.equals("XIFRA")) {
-                return text.toLowerCase();
-            } else if (text.equals("desxifra") || text.equals("Desxifra") || text.equals("DESXIFRA")) {
-                return text.toLowerCase();
-            } else {
-                System.out.println("No té entès, torna-ho a escriure.");
-            }
-
-        }
-
-    }
-
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        String funcio = confirmador();
 
-        System.out.println("Ingresa un text per codificar:");
-        String cadena = scanner.nextLine();
-        if (cadena.isBlank()) {
-            return;
-        }
-        if (funcio.equals("xifra")) {
-            System.out.println(xifraRot13(cadena));
-        } else {
-            System.out.println(desxifraRot13(cadena));
-        }
+        String[] senseXifra = { "hola soc en Pera!", "El Zoro dorm zzzz", "M9 es molt divertit :)" };
+        String[] xifrat = { xifraRot13(senseXifra[0]), xifraRot13(senseXifra[1]), xifraRot13(senseXifra[2]) };
+        System.out.println("XIFRAT");
+        System.out.println(senseXifra[0] + " --> " + xifraRot13(senseXifra[0]));
+        System.out.println(senseXifra[1] + " --> " + xifraRot13(senseXifra[1]));
+        System.out.println(senseXifra[2] + " --> " + xifraRot13(senseXifra[2]));
+        System.out.println();
+        System.out.println("DEXIFRAT");
+        System.out.println(xifrat[0] + " --> " + desxifraRot13(xifrat[0]));
+        System.out.println(xifrat[1] + " --> " + desxifraRot13(xifrat[1]));
+        System.out.println(xifrat[2] + " --> " + desxifraRot13(xifrat[2]));
+
     }
 }
