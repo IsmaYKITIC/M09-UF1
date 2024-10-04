@@ -1,0 +1,3 @@
+Notas para el programa
+collections.shufle
+list de character(tipo lista) estructura java 
