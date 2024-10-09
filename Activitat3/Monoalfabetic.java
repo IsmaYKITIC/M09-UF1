@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedMap;
 import java.util.Collections;
 
 public class Monoalfabetic {
@@ -63,17 +64,55 @@ public class Monoalfabetic {
         return nCadena;  
     }
 
-    //public static String deixifraMonoAlfa(String cadena){
+    public static String deixifraMonoAlfa(String cadena){
+        boolean esMajuscula= false;
+        String nCadena="";
 
-    //}
+        for (int l = 0; l < cadena.length(); l++) {
+            //Bloc de saparacio de majusulas i minusucles
+            if (Character.isUpperCase(cadena.charAt(l)) && Character.isLetter(cadena.charAt(l))) {
+                esMajuscula = true;
+            } else if (Character.isLowerCase(cadena.charAt(l)) && Character.isLetter(cadena.charAt(l))) {
+                esMajuscula = false;
+            }
+            //Bloc iteració
+            if (Character.isLetter(cadena.charAt(l))) {
+                if (esMajuscula) {
+                    for (int i = 0; i < alfabetNou.length; i++) {
+                        if (cadena.charAt(l) == alfabetNou[i]){
+                            nCadena=nCadena+LMAY[i];
+                            break;
+                        }
+                    }
+                }else{
+                    for (int i = 0; i < alfabetNou.length; i++) {
+                        if (Character.toUpperCase(cadena.charAt(l)) == alfabetNou[i]){
+                            nCadena=nCadena+Character.toLowerCase(LMAY[i]);
+                            break;
+                        }
+                    }
+                }
+            }else{
+                nCadena= nCadena+ cadena.charAt(l);
+            }
+        }
+        return nCadena;
+    }
     public static void main(String[] args) {
 
         alfabetNou=permutaAlfabet(LMAY);
-        System.out.println(X_STRINGS[0]);
-        System.out.println();
-        System.out.println(xifraMonoAlfa(X_STRINGS[0]));
 
-            
+        System.out.println("PER XIFRA: ");
+        for (int i = 0; i < X_STRINGS.length; i++) {
+            System.out.println(X_STRINGS[i]+ " --> "+ xifraMonoAlfa(X_STRINGS[i]));
+            System.out.println();
+        }
+        System.out.println("PER DEXIFRA: ");
+        for (int i = 0; i < X_STRINGS.length; i++) {
+            System.out.println(xifraMonoAlfa(X_STRINGS[i])+ " --> "+ deixifraMonoAlfa(xifraMonoAlfa(X_STRINGS[i])) );
+            System.out.println();
+        }
+
             
     }
     
