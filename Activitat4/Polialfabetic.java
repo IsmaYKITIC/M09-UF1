@@ -1,0 +1,6 @@
+/**
+ * Polialfabetic
+ */
+public class Polialfabetic {
+
+}

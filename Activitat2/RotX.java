@@ -10,7 +10,7 @@ public class RotX {
             'N', 'Ñ', 'O', 'Ó', 'Ò', 'Ö', 'P', 'Q', 'R', 'S', 'T', 'U', 'Ú', 'Ù', 'Ü', 'V', 'X', 'Y', 'Z'
     };
     public static final int[] nombres = { 1, 5, 13 };
-    public static final String[] senseXifra = { "hola soc en Pera!", "El Zorro dorm zzzz", "M9 es molt divertit :)" };
+    public static final String[] senseXifra = { "larbi87", "El Zorro dorm zzzz", "M9 es molt divertit :)" };
     public static String[] xifrat = { xifraRotX(senseXifra[0], nombres[0]), xifraRotX(senseXifra[1], nombres[1]),
             xifraRotX(senseXifra[2], nombres[2]) };
 
